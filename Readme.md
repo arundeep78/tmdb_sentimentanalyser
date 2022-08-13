@@ -16,6 +16,8 @@ Sentiment analysis is used to mark each review as `positive`, `negative` or `neu
 
 ## Usage
 
+---
+
 ### Sidebar
 
 App has a left sidebar that provides total movies in local DB and movies with reviews.
@@ -46,6 +48,7 @@ On the right side there is a control panel to recalculate sentiments by adjustin
 
 ## Sentiment analysis
 
+---
 This application uses Python's [Natural Language ToolKit](https://www.nltk.org/) to perform sentiment analysis. Specifically for this app, [Vader Sentiment analysis](https://github.com/cjhutto/vaderSentiment).
 
 This classifer providers a `compound score` in addition to scores for positive, negative and neutral category. For this app, `threshold` value is used to define the range for neutral zone between -1 and 1. Higher the threshold, larger the range of neutral zone and thus only extreme cases are rated as positive.
@@ -55,6 +58,8 @@ This classifer providers a `compound score` in addition to scores for positive, 
 Before calculating Vader scores, we preprocess the review text to remove hastags, hyperlinks and stop words. hyperlinks and stopwords are offered as control options in the app to observe the difference in sentiment ratings.
 
 ## How to run
+
+---
 
 ### 1. Github method
 
