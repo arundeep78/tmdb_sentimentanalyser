@@ -17,7 +17,7 @@ M_CAST_TABLE = "t_tmdb_movie_cast"
 MOVIE_TABLE = "t_tmdb_pop_movies"
 M_REVIEW_TABLE = "t_tmdb_movie_review"
 
-CSS_FILE = "./app/src/css/styles.css"
+CSS_FILE = "./src/css/styles.css"
 
 def update_tmdb_pop_movies_sentiments(con: engine, tmdb_key:str, thresh:float = .05, stwords:bool = True, hyperlinks:bool=True):
     """
@@ -94,7 +94,7 @@ def update_crew_cast(m_ids:List[int], con: engine, tmdb_key:str):
     df_toPG(df=casts_df, table_name=M_CAST_TABLE, con =con )
  
 
-def update_review_sentiments(m_ids:List(int), con: engine, tmdb_key:str, thresh: float = .05, stwords:bool = True, hyperlinks:bool=True):
+def update_review_sentiments(m_ids:List[int], con: engine, tmdb_key:str, thresh: float = .05, stwords:bool = True, hyperlinks:bool=True):
     """
     update movie reviews and its sentiments for list of TMDB movie IDs.
     Store in DB

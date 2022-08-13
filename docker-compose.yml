@@ -2,35 +2,52 @@ version: '3.8'
 
 services:
   app:
-    build:
-      context: ..
-      dockerfile: .devcontainer/Dockerfile
-      args:
-      
-    env_file:
-      - ./.devcontainer/.env
+    # Uncomment image to use existing image from docker hub. Make sure to comment build section.
+    # At the same time use piappdb image in the db service, which is created in compatibility with 
+    # piapp
 
-    volumes:
-      - .:/workspace:cached
+    # image: piapp:latest
+    build:
+      context: .
+      dockerfile: ./Dockerfildockee
+      # args:
+    
+    # comment out this section in case using existing piapp image
+    env_file:
+      - ./.env
+
+    # volumes:
+    #   - .:/app:cached
 
     # Overrides default command so things don't shut down after the process ends.
-    command: sleep infinity
+    # command: sleep infinity
 
     # Runs app on the same network as the database container, allows "forwardPorts" in devcontainer.json function.
     network_mode: service:db
     # Uncomment the next line to use a non-root user for all processes.
-    # user: vscode
+    # user: appuser
 
     # Use "forwardPorts" in **devcontainer.json** to forward an app port locally.
     # (Adding the "ports" property to this file will not forward from a Codespace.)
 
   db:
+    # Uncomment below line to use pre-built postgres image to be used with app service above.
+    # comment out below sections in case using custom built postgres
+    #  - volumnes
+    #  - env_files
+    #  - volumes 
+    # image: piappdb:latest
     image: postgres:14.5 #latest
     restart: unless-stopped
     volumes:
       - postgres-data:/var/lib/postgresql/data
     env_file:
-      - ./.devcontainer/.env
+      - ./.env
+    ports:
+      - 5432:5432
+      - 80:80
+    # expose:
+    #   - [5432, 80]
     # Add "forwardPorts": ["5432"] to **devcontainer.json** to forward PostgreSQL locally.
     # (Adding the "ports" property to this file will not forward from a Codespace.)
 

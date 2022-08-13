@@ -28,7 +28,7 @@ def init_connection():
 
 conn = init_connection()
 
-tmdb_key = st.secrets['tmdb']['TMDB_KEY']
+tmdb_key = os.environ['TMDB_KEY'] #st.secrets['tmdb']['TMDB_KEY']
 
 # Load CSS to hide dataframe index column
 utils.load_css()
@@ -81,7 +81,10 @@ def main():
                 key="threshold",
              
             )
-
+        st.write("---")
+        st.write(""" Movie review sentiment analysis based on [VADER 
+                    (Valence Aware Dictionary and sEntiment Reasoner)](https://github.com/cjhutto/vaderSentiment#python-demo-and-code-examples)
+                    using [NLTK](https://www.nltk.org/) package """)
     # update table if button is clicked        
     if update_movie_bt:
         utils.update_tmdb_pop_movies_sentiments(
@@ -131,7 +134,7 @@ def main():
     # sidebar movie selection for full reviews
     movie_index = st.sidebar.selectbox("Select a movie for detailed reviews",
                      options= movie_overview.index,
-                     index=int(random.choice(movie_overview.index)),
+                     index= 0,
                      format_func = lambda x: movie_overview.loc[x,'Title']
                      
                      )
@@ -146,7 +149,7 @@ def main():
                     )
                 )
     
-    # update review table on the main page
+    # Individual moview reviews table on the main page
     st.write("#### Review sentiments for : ",
                  f"*{movie_overview.loc[movie_index,'Title']}*"
             )

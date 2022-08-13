@@ -2,13 +2,12 @@
 Helper functions for natural language processing tasks
 
 """
-
-import nltk
 import string
 import re
+import nltk
 import numpy as np
+
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
-from src import tmdbutils
 from nltk.tokenize import word_tokenize
 
 nltk.download('stopwords')
