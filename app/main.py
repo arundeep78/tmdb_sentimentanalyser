@@ -26,8 +26,10 @@ def init_connection():
 
     return sa.create_engine(f"postgresql://{os.environ['POSTGRES_USER']}:{os.environ['POSTGRES_PASSWORD']}@{os.environ['POSTGRES_HOST']}/{os.environ['POSTGRES_DB']}")
 
+# Initialize Db connection
 conn = init_connection()
 
+#Read TMDB api key
 tmdb_key = os.environ['TMDB_KEY'] #st.secrets['tmdb']['TMDB_KEY']
 
 # Load CSS to hide dataframe index column
