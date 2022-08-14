@@ -33,5 +33,6 @@ USER appuser
 WORKDIR /usr/src/app
 COPY ./app .
 
+RUN python ./__init__.py
 
 CMD streamlit run --server.port 80 main.py

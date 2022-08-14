@@ -1,7 +1,7 @@
 
 import os
 import random
-
+import time
 from src import utils
 
 import streamlit as st
@@ -31,7 +31,7 @@ conn = init_connection()
 tmdb_key = os.environ['TMDB_KEY'] #st.secrets['tmdb']['TMDB_KEY']
 
 # Load CSS to hide dataframe index column
-utils.load_css()
+# utils.load_css()
 
 def main():
     """
@@ -48,9 +48,9 @@ def main():
         st.write("Fetch new list of popular movies from TMDB")
         # To update movie list and sentiments from TMDB website
         update_movie_bt = st.button(
-                    label="Update movies",
-                    help= 'Fetches new popular movie list from TMDB and recalculates sentiments',
-                    )
+                        label="Update movies",
+                        help= 'Fetches new popular movie list from TMDB and recalculates sentiments',
+                        )
     st.markdown("---")
 
     st.write("Current list of popular movies with overall sentiment rating")
@@ -87,24 +87,30 @@ def main():
                     using [NLTK](https://www.nltk.org/) package """)
     # update table if button is clicked        
     if update_movie_bt:
-        utils.update_tmdb_pop_movies_sentiments(
-                    con = conn,
-                    tmdb_key = tmdb_key,
-                    thresh = threshold,
-                    stwords = rm_sw,
-                    hyperlinks = rm_hl
+        with st.spinner("Please wait while we fetch updated movies from TMDB..."):
+            start = time.perf_counter()
+            utils.update_tmdb_pop_movies_sentiments(
+                        con = conn,
+                        tmdb_key = tmdb_key,
+                        thresh = threshold,
+                        stwords = rm_sw,
+                        hyperlinks = rm_hl
                     )
 
+        st.success(f" Movies successfully updated in {int(time.perf_counter() - start)} seconds!")
     try:
         movie_overview, tot_movies = utils.get_movies_overview(con= conn)
     except:
         # update DB in case there is no initial data
-        utils.update_tmdb_pop_movies_sentiments(con=conn, 
-                                        tmdb_key= tmdb_key, 
-                                        stwords = rm_sw,
-                                        hyperlinks = rm_hl
-                                    )
+        with st.spinner("Please wait while we initialize the DB with initial movies list. It won't take long ..."):
+            start = time.perf_counter()
+            utils.update_tmdb_pop_movies_sentiments(con=conn, 
+                                            tmdb_key= tmdb_key, 
+                                            stwords = rm_sw,
+                                            hyperlinks = rm_hl
+                                        )
 
+        st.success(f" DB successfully initialized in {int(time.perf_counter() - start)} seconds!\n Enjoy the app!")
     # update sentiments based on new threshold
     utils.update_sentiments(
                     con = conn,

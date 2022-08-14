@@ -17,3 +17,4 @@ RUN if [ -f "/tmp/conda-tmp/environment.yml" ]; then umask 0002 && /opt/conda/bi
 
 COPY ../requirements.txt .
 RUN pip install -r requirements.txt
+
