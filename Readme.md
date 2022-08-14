@@ -10,9 +10,12 @@ Sentiment analysis is used to mark each review as `positive`, `negative` or `neu
 ## Technologies
 
 - [Docker](https://www.docker.com/)
+- [Docker-compose](https://docs.docker.com/compose/)
 - [NLTK](https://www.nltk.org/)
 - [Streamlit](https://streamlit.io/)
 - [PostgreSQL](https://hub.docker.com/_/postgres/)
+
+This application was developed on WSL2 on Windows 11. In general the commands and file should work on linux systems with Docker and docker compose installed.
 
 ## Usage
 
