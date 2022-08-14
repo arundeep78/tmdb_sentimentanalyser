@@ -2,10 +2,14 @@ version: '3.8'
 
 services:
   app:
-    build:
-      context: .
-      dockerfile: ./Dockerfile
-      # args:
+    image: arundeep78/piapp:latest
+    # if you make changes to the app/Docker file then you can uncomment the below section and comment above line
+    # to update the images
+    
+    # build:
+    #   context: .
+    #   dockerfile: ./Dockerfile
+    #   # args:
     
     # comment out this section in case using existing piapp image
     env_file:

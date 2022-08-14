@@ -61,7 +61,15 @@ Before calculating Vader scores, we preprocess the review text to remove hastags
 
 ---
 
-### 1. Github method
+App can be executed using one of the 2 methods listed below. 
+
+For DB configuration and TMDB api it uses `.env` file in `docker-compose.yml`.
+ 
+### 1. Docker compose
+
+There is a pre-built docker image for the app service available on [arundeep78/piapp:latest](https://hub.docker.com/r/arundeep78/piapp) based on Dockerfile.
+
+If you make changes to the app or anything else in Docker file, you can change `docker-compose.yml` `services.app` section to use `build` section.
 
 1. Clone github repo to local folder
 2. Execute below steps 

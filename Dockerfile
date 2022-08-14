@@ -1,6 +1,6 @@
-FROM mcr.microsoft.com/vscode/devcontainers/anaconda:0-3
+ARG python=python:3.9.13-slim-bullseye
 
-
+FROM ${python}
 
 # [Optional] Uncomment this section to install additional OS packages.
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
@@ -8,9 +8,9 @@ FROM mcr.microsoft.com/vscode/devcontainers/anaconda:0-3
 
 
 # add and install python requirements
-RUN pip install --upgrade pip
+RUN pip install --upgrade pip --no-cache-dir
 COPY ./requirements.txt .
-RUN pip install -r requirements.txt
+RUN pip install -r requirements.txt --no-cache-dir
 
 
 # # setup user and group ids
@@ -32,10 +32,6 @@ USER appuser
 # Copy app files to container
 WORKDIR /usr/src/app
 COPY ./app .
-# COPY ./.streamlit ./.streamlit
 
-# EXPOSE 80
-
-# ENTRYPOINT ["streamlit", "run", "--server.port", "80"]
 
 CMD streamlit run --server.port 80 main.py
