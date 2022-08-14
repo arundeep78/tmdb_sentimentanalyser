@@ -33,6 +33,7 @@ USER appuser
 WORKDIR /usr/src/app
 COPY ./app .
 
+# To download nltk lexicons upfront
 RUN python ./__init__.py
 
 CMD streamlit run --server.port 80 main.py
